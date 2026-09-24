@@ -37,6 +37,20 @@ npm run dev:frontend
 npm run dev:backend
 ```
 
+When the backend runs directly on your machine, use this database URL in `backend/.env`:
+
+```text
+DATABASE_URL=postgresql://taskflow:taskflow@localhost:5432/taskflow
+```
+
+When the backend runs inside Docker Compose, the Compose file replaces that value with:
+
+```text
+DATABASE_URL=postgresql://taskflow:taskflow@postgres:5432/taskflow
+```
+
+The hostname is different because `localhost` means the current process's machine or container. Inside Compose, `postgres` is the service name that resolves to the PostgreSQL container.
+
 ## Infrastructure via Docker
 
 From the project root:
@@ -52,5 +66,6 @@ The Compose file is intended to bootstrap the local PostgreSQL and Redis environ
 
 - The frontend should run on port 3000.
 - The backend should run on port 4000.
-- PostgreSQL should use the configured connection string from `.env`.
-- Redis should be reachable at the configured Redis URL.
+- Host-run backend: PostgreSQL is reachable at `localhost:5432` and Redis at `localhost:6379`.
+- Docker-run backend: PostgreSQL is reachable at `postgres:5432` and Redis at `redis:6379`.
+- Never use `localhost` for a database or cache service from inside another Docker container.

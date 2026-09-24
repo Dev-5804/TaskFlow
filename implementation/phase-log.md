@@ -84,11 +84,41 @@ This file records the work completed for each PRD phase. Add a new dated section
 
 ## Phase 3 - Database
 
-**Status:** Not started
+**Status:** Complete
+
+**Started:** 2026-09-24
+
+**Completed:** 2026-09-24
+
+**Implementation guide:** [phase-3-database.md](phase-3-database.md)
+
+### Implemented so far
+
+- Installed Prisma and Prisma Client version 6.19.3 in the backend.
+- Added the complete PostgreSQL schema for all nine required models.
+- Added workspace roles, task statuses, and task priorities as Prisma enums.
+- Added ownership relations, foreign keys, deletion behavior, unique constraints, and query indexes.
+- Added the shared `PrismaClient` instance at `backend/src/config/database.js`.
+- Added the initial migration SQL and PostgreSQL migration lock file.
+- Added backend Prisma scripts for formatting, validation, generation, migration, deployment, and Prisma Studio.
+
+### Validation
+
+- `npm run db:format --prefix backend` passed.
+- `DATABASE_URL=postgresql://taskflow:taskflow@localhost:5432/taskflow npm run db:validate --prefix backend` passed.
+- `DATABASE_URL=postgresql://taskflow:taskflow@localhost:5432/taskflow npm run db:generate --prefix backend` passed.
+- `npm run build:backend` passed.
+- `npm run lint` passed.
+- `prisma migrate diff` generated the complete initial migration SQL from the validated schema.
+- `npm run db:deploy --prefix backend` passed against PostgreSQL with no pending migrations.
+
+### Known limitations
+
+- The implementation currently uses Prisma 6.19.3; Prisma 7 migration is a separate compatibility upgrade because it requires a generated output path, `prisma.config.ts`, and a PostgreSQL driver adapter.
 
 ### Completion record
 
-Add the implementation guide, completion date, migration status, validation commands, and known limitations here when Phase 3 is finished.
+The database migration is applied and the schema is ready for Phase 4 authentication.
 
 ## Phase 4 - Authentication
 

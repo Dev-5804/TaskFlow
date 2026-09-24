@@ -24,8 +24,8 @@ services:
       context: ../backend
     environment:
       PORT: 4000
-      DATABASE_URL: ${DATABASE_URL:-postgresql://taskflow:taskflow@postgres:5432/taskflow}
-      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-taskflow}:${POSTGRES_PASSWORD:-taskflow}@postgres:5432/${POSTGRES_DB:-taskflow}
+      REDIS_URL: redis://redis:6379
     depends_on:
       - postgres
       - redis
