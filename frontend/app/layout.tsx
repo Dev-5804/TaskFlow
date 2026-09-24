@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "TaskFlow",
-  description: "Project foundation for TaskFlow",
+  description: "A focused workspace for teams doing their best work.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

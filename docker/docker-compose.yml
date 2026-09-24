@@ -32,6 +32,17 @@ services:
     ports:
       - "4000:4000"
 
+  taskflow-realtime:
+    build:
+      context: ../realtime
+    environment:
+      REALTIME_PORT: 4001
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+    depends_on:
+      - redis
+    ports:
+      - "4001:4001"
+
   taskflow-frontend:
     build:
       context: ../frontend
@@ -40,6 +51,7 @@ services:
       NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-ws://localhost:4001}
     depends_on:
       - taskflow-api
+      - taskflow-realtime
     ports:
       - "3000:3000"
 
