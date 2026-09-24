@@ -165,11 +165,42 @@ The authentication service is ready for Phase 5 workspace membership and RBAC.
 
 ## Phase 5 - Workspace and RBAC
 
-**Status:** Not started
+**Status:** Complete
+
+**Started:** 2026-09-25
+
+**Completed:** 2026-09-25
+
+**Implementation guide:** [phase-5-workspace-rbac.md](phase-5-workspace-rbac.md)
+
+### Implemented
+
+- Added authenticated workspace creation with automatic `OWNER` membership.
+- Added member-only workspace listing and detail access.
+- Added registered-user invitations by email.
+- Added owner-only member role updates and removals.
+- Added member self-leave behavior.
+- Prevented workspace owners from leaving or being removed before ownership transfer exists.
+- Added backend `403` role enforcement instead of UI-only permission hiding.
+- Added API-backed workspace frontend with creation, member invitations, role controls, removal, and leave actions.
+- Added typed frontend workspace contracts and responsive workspace controls.
+
+### Validation
+
+- `npm run build` passed.
+- `npm run lint` passed without warnings.
+- `npm run typecheck` passed.
+- Workspace creation and listing passed against PostgreSQL.
+- Member invitation passed.
+- Owner role update returned `200`.
+- Non-owner member management returned `403`.
+- Member removal returned `204`.
+- Owner leave protection returned `409`.
+- Temporary workspace and test users were removed from PostgreSQL.
 
 ### Completion record
 
-Add the implementation guide, completion date, implemented permissions, validation commands, and known limitations here when Phase 5 is finished.
+The workspace and membership boundary is ready for Phase 6 Kanban CRUD.
 
 ## Phase 6 - Kanban CRUD
 
