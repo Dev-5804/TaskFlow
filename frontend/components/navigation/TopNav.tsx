@@ -1,7 +1,18 @@
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { mockWorkspace, mockUsers } from "@/data/mock-data";
 
 export function TopNav() {
+  const router = useRouter();
+  const { logout, user } = useAuth();
+  const initials = user?.name.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase() || mockUsers[0].initials;
+
+  async function signOut() {
+    await logout();
+    router.replace("/login");
+  }
+
   return (
     <header className="top-nav">
       <Link className="brand" href="/dashboard">
@@ -17,9 +28,9 @@ export function TopNav() {
         <div className="avatar-stack" aria-label="Online teammates">
           {mockUsers.slice(0, 3).map((user) => <span className="avatar avatar--small" style={{ backgroundColor: user.avatarColor }} key={user.id}>{user.initials}</span>)}
         </div>
-        <button className="profile-button" aria-label="Open profile menu">
-          <span className="avatar" style={{ backgroundColor: mockUsers[0].avatarColor }}>{mockUsers[0].initials}</span>
-          <span className="profile-button__name">Devendra</span>
+        <button className="profile-button" aria-label="Sign out" onClick={signOut}>
+          <span className="avatar" style={{ backgroundColor: mockUsers[0].avatarColor }}>{initials}</span>
+          <span className="profile-button__name">{user?.name || "Profile"}</span>
           <span aria-hidden="true">⌄</span>
         </button>
       </div>

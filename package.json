@@ -13,7 +13,7 @@
     "build:realtime": "npm --prefix realtime run build",
     "build": "npm run build:frontend && npm run build:backend && npm run build:realtime",
     "lint": "npm --prefix frontend run lint && npm --prefix backend run lint && npm --prefix realtime run lint",
-    "typecheck": "npx tsc --noEmit -p tsconfig.base.json",
+    "typecheck": "npm --prefix frontend run typecheck",
     "format": "npx prettier --write ."
   },
   "dependencies": {

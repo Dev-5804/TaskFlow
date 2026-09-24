@@ -122,11 +122,46 @@ The database migration is applied and the schema is ready for Phase 4 authentica
 
 ## Phase 4 - Authentication
 
-**Status:** Not started
+**Status:** Complete
+
+**Started:** 2026-09-24
+
+**Completed:** 2026-09-24
+
+**Implementation guide:** [phase-4-authentication.md](phase-4-authentication.md)
+
+### Implemented
+
+- Added Zod validation for registration and login payloads.
+- Added bcrypt password hashing with a cost factor of 12.
+- Added 15-minute JWT access tokens.
+- Added cryptographically random refresh tokens stored only as SHA-256 hashes.
+- Added HTTP-only refresh-token cookies scoped to `/api/auth`.
+- Added refresh-token rotation and old-token revocation in a Prisma transaction.
+- Added logout revocation and cookie clearing.
+- Added bearer-token middleware for `/api/auth/me`.
+- Added credentialed CORS for frontend cookie requests.
+- Added centralized internal-error responses that do not expose stack traces.
+
+### Validation
+
+- `npm run db:generate --prefix backend` passed.
+- `npm run build:backend` passed.
+- `npm run lint` passed.
+- Live registration returned an access token and refresh cookie.
+- Live `/api/auth/me` returned the authenticated user.
+- Live refresh returned a replacement access token.
+- Reusing the old refresh token returned `401`.
+- Live logout returned `204`.
+- Temporary smoke-test data was removed from PostgreSQL.
+
+### Known limitations
+
+- Rate limiting and account verification are deferred to security hardening.
 
 ### Completion record
 
-Add the implementation guide, completion date, implemented endpoints, validation commands, and known limitations here when Phase 4 is finished.
+The authentication service is ready for Phase 5 workspace membership and RBAC.
 
 ## Phase 5 - Workspace and RBAC
 

@@ -11,6 +11,7 @@ const port = Number(process.env.PORT || 4000);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || "*",
+    credentials: true,
   })
 );
 
@@ -29,6 +30,11 @@ app.get("/health", (req, res) => {
     status: "ok",
     service: "taskflow-api",
   });
+});
+
+app.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).json({ message: "Internal server error" });
 });
 
 app.listen(port, () => {
